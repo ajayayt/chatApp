@@ -23,15 +23,15 @@ const ChatWindow = ({ currentUser, selectedUser, messages, onSendMessage, isOnli
     }
   }
 
-  const formatTime = (timestamp) => {
-    return new Date(timestamp).toLocaleTimeString('en-US', {
+  const formatTime = (date_time) => {
+    return new Date(date_time).toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit'
     })
   }
 
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp)
+  const formatDate = (date_time) => {
+    const date = new Date(date_time)
     const today = new Date()
     const yesterday = new Date(today)
     yesterday.setDate(yesterday.getDate() - 1)
@@ -54,8 +54,9 @@ const ChatWindow = ({ currentUser, selectedUser, messages, onSendMessage, isOnli
     let currentGroup = null
 
     messages.forEach((message) => {
-      const messageDate = new Date(message.timestamp).toDateString()
-      
+      const messageDate = new Date(message.date_time).toDateString()
+          console.log("message", message)
+
       if (!currentGroup || currentGroup.date !== messageDate) {
         currentGroup = { date: messageDate, messages: [] }
         groups.push(currentGroup)
@@ -108,7 +109,7 @@ const ChatWindow = ({ currentUser, selectedUser, messages, onSendMessage, isOnli
                 <div className="flex items-center justify-center mb-4">
                   <div className="bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
                     <span className="text-xs font-medium text-gray-500">
-                      {formatDate(group.messages[0].timestamp)}
+                      {formatDate(group.messages[0].date_time)}
                     </span>
                   </div>
                 </div>
@@ -124,7 +125,7 @@ const ChatWindow = ({ currentUser, selectedUser, messages, onSendMessage, isOnli
                       <div
                         key={message._id || index}
                         className={`flex items-end space-x-2 animate-slide-in ${
-                          isOwnMessage ? 'justify-end' : 'justify-start'
+                          isOwnMessage ? 'justify-end ' : 'justify-start'
                         }`}
                       >
                         {!isOwnMessage && showAvatar && (
@@ -139,16 +140,19 @@ const ChatWindow = ({ currentUser, selectedUser, messages, onSendMessage, isOnli
                           <div className="w-8 h-8 flex-shrink-0"></div>
                         )}
 
-                        <div className={`message-bubble ${
-                          isOwnMessage ? 'message-sent' : 'message-received'
-                        }`}>
+                          <div
+                          className={`message-bubble p-3 max-w-xs md:max-w-sm break-words
+                            ${isOwnMessage 
+                              ? 'bg-blue-500 text-white rounded-lg shadow-md ml-auto' 
+                              : 'bg-gray-100 text-gray-900 rounded-lg shadow-md mr-auto'
+                            }`}
+                        >
                           <p className="text-sm leading-relaxed">{message.content}</p>
-                          <p className={`text-xs mt-1 ${
-                            isOwnMessage ? 'text-primary-200' : 'text-gray-500'
-                          }`}>
-                            {formatTime(message.timestamp)}
+                          <p className={`text-xs mt-1 ${isOwnMessage ? 'text-primary-200' : 'text-gray-500'}`}>
+                            {formatTime(message.date_time)}
                           </p>
                         </div>
+
                       </div>
                     )
                   })}

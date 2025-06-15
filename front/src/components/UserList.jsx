@@ -26,8 +26,8 @@ const UserList = ({ users, onlineUsers, selectedUser, onUserSelect }) => {
                 >
                   <div className="flex items-center space-x-3">
                     <div className="relative">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-white ${
-                        isSelected ? 'bg-primary-600' : 'bg-gray-400'
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold  ${
+                        isSelected ? 'bg-primary-600 text-dark' : 'bg-gray-400 text-white'
                       }`}>
                         {user.username.charAt(0).toUpperCase()}
                       </div>

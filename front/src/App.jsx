@@ -17,6 +17,7 @@ function App() {
     
     if (token && userData) {
       const parsedUser = JSON.parse(userData)
+      
       setUser(parsedUser)
       connectSocket(token)
     }
@@ -24,9 +25,9 @@ function App() {
     setLoading(false)
   }, [])
 
+
   const handleLogin = (userData, token) => {
-    console.log("useState",userData)
-    console.log("token",token)
+   
     localStorage.setItem('token', token)
     localStorage.setItem('user', JSON.stringify(userData))
     setUser(userData)
@@ -34,6 +35,7 @@ function App() {
   }
 
   const handleLogout = () => {
+    console.log("handleLogout")
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     setUser(null)

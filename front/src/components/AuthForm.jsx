@@ -1,11 +1,11 @@
 
 import { useState } from 'react'
 
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axioshelper from '../helper/axiosHelper';
 
 const AuthForm = ({ onLogin }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
   const [isLogin, setIsLogin] = useState(true);
 

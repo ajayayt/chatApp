@@ -2,10 +2,10 @@ import UserList from "./UserList";
 import ChatWindow from "./ChatWindow";
 import { useEffect, useState } from "react";
 import { getSocket } from '../services/socket'
-
-
-const ChatPage = ( user, onLogout) => {
-     const [users, setUsers] = useState([])
+const ChatPage = ({ user, onLogout}) => {
+  
+    console.log("token",user)
+    const [users, setUsers] = useState([])
     const [selectedUser, setSelectedUser] = useState(null)
     const [messages, setMessages] = useState([])
     const [onlineUsers, setOnlineUsers] = useState([])
@@ -60,6 +60,7 @@ const ChatPage = ( user, onLogout) => {
       }
     }
 
+
     const handleSendMessage = (content) => {
       if (!selectedUser) return
       console.log("user", user)
@@ -72,11 +73,15 @@ const ChatPage = ( user, onLogout) => {
         })
       }
     }
+
+    const handelLogout = () => {
+      onLogout()
+    }
   return (
     <div className="h-screen flex">
-      {/* Sidebar */}
+     
       <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
-        {/* Header */}
+      
         <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-primary-600 to-primary-700">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -93,14 +98,13 @@ const ChatPage = ( user, onLogout) => {
                 </div>
               </div>
             </div>
-            <button className="text-primary-100 cursor-pointer transition-colors duration-200 p-1"
+            <button className="text-primary-100 cursor-pointer transition-colors duration-200 p-1" onClick={handelLogout}
               title="Logout" >
               Log Out
             </button>
           </div>
         </div>
 
-        {/* Users List */}
         <UserList
           users={users}
           onlineUsers={onlineUsers}
@@ -109,7 +113,7 @@ const ChatPage = ( user, onLogout) => {
         />
       </div>
 
-      {/* Main Chat Area */}
+      {/* chat box window */}
       <div className="flex-1 flex flex-col">
         {selectedUser ? (
           <ChatWindow
