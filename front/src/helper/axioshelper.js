@@ -1,7 +1,7 @@
 import axios from 'axios';
-
+const baseURL = 'http://localhost:3000'
 const axioshelper = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: baseURL,
 });
 
 export default axioshelper;

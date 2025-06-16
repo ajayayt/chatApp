@@ -1,13 +1,13 @@
 import { io } from 'socket.io-client'
 
 let socket = null
-
+const baseURL = 'http://localhost:3000'
 export const connectSocket = (token) => {
   if (socket) {
     socket.disconnect()
   }
 
-  socket = io('http://localhost:3000', {
+  socket = io(baseURL, {
     auth: {
       token
     }
