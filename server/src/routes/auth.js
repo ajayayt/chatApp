@@ -6,7 +6,7 @@ import User from '../models/User.js'; // make sure file has `.js` extension if y
 
 const router = express.Router()
 
-const JWT_SECRET = process.env.JWT_SECRET || 'SDFWEFDSSFSDFWECWRAQW'
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
 router.post('/register', async (req, res) => {
   
@@ -45,7 +45,6 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    
     const { username, password } = req.body
    
     const user = await User.findOne({ username});
@@ -54,7 +53,6 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' })
     }
     const isMatch = await bcrypt.compare(password, user.password)
-   
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' })
     }

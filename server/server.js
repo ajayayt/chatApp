@@ -40,7 +40,7 @@ const onlineUsers = new Map()
 io.use(authenticateSocket)
 
 io.on('connection', (socket) => {
-   console.log(`connection ${socket.user.username} `)
+ 
   onlineUsers.set(socket.user._id.toString(), {
     socketId: socket.id,
     user: socket.user
@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
           { senderId: otherUserId, receiverId: userId }
         ]
       })
-      .sort({ timestamp: 1 })
+      .sort({ date_time: 1 })
       .lean()
 
       socket.emit('chatHistory', messages)

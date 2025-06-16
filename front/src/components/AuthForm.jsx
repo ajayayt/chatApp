@@ -24,6 +24,7 @@ const AuthForm = ({ onLogin }) => {
         const {data} = await axioshelper.post(endpoint, postData);
         
         if(data?.status){
+          console.log("login respoinse",data.data)
            onLogin(data?.data.user, data?.data?.token)
         }
         setLoading(false)
@@ -39,7 +40,6 @@ const AuthForm = ({ onLogin }) => {
           errorMsg = error.message; 
         }
         setError(errorMsg);
-      console.error("Login error:", error);
     }
   };
 
