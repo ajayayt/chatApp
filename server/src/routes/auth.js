@@ -6,7 +6,7 @@ import User from '../models/User.js'; // make sure file has `.js` extension if y
 
 const router = express.Router()
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
+const JWT_SECRET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
 router.post('/register', async (req, res) => {
   
