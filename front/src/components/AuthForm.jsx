@@ -7,6 +7,7 @@ import axioshelper from '../helper/axiosHelper';
 const AuthForm = ({ onLogin }) => {
   // const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
   const [isLogin, setIsLogin] = useState(true);
 
   const toggleForm = () => setIsLogin(prev => !prev);
@@ -22,23 +23,13 @@ const AuthForm = ({ onLogin }) => {
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register'
         const {data} = await axioshelper.post(endpoint, postData);
         
-      // const response = await fetch("/api/login", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(data),
-      // });
         if(data?.status){
-           console.log("response:", data?.data.user);
-          onLogin(data?.data.user, data?.data?.token)
-          console.log("Login success:");
+          
+           onLogin(data?.data.user, data?.data?.token)
         }
-      // const result = await response.json();
-      // console.log("Login success:", result);
         setLoading(false)
-        // navigate('/chat');
     } catch (error) {
+       console.log("response:", error.message);
       setLoading(false)
       console.error("Login error:", error);
     }

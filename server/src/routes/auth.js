@@ -9,12 +9,13 @@ const router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
 
 router.post('/register', async (req, res) => {
+  console.log("asdasdf",req.body)
   try {
     
     const { username, email, password } = req.body
-
+ 
     const existingUser = await User.findOne({ $or: [{ email }, { username }] })
-
+   
     if (existingUser) {
       return res.status(400).json({ 
         status:false,

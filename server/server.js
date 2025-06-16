@@ -24,7 +24,7 @@ const io = new Server(server, {
 app.use(cors())
 app.use(express.json())
 
-const MONGO_URI = 'mongodb://127.0.0.1:27017/chatapp'; // Local MongoDB
+const MONGO_URI = 'mongodb+srv://ajaysharan:Ajay123@cluster0.0mp5m.mongodb.net/chatapp'; // Local MongoDB
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
