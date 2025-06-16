@@ -24,13 +24,21 @@ const AuthForm = ({ onLogin }) => {
         const {data} = await axioshelper.post(endpoint, postData);
         
         if(data?.status){
-          
            onLogin(data?.data.user, data?.data?.token)
         }
         setLoading(false)
     } catch (error) {
-       console.log("response:", error.message);
-      setLoading(false)
+        setLoading(false)
+        let errorMsg = "Something went wrong";
+        if (error.response && error.response.data) {
+          errorMsg =
+            error.response.data.message || 
+            error.response.data.error || 
+            JSON.stringify(error.response.data); 
+        } else {
+          errorMsg = error.message; 
+        }
+        setError(errorMsg);
       console.error("Login error:", error);
     }
   };
@@ -40,6 +48,7 @@ const AuthForm = ({ onLogin }) => {
       <div className="py-6 px-4 ">
         <div className="min-w-[450px]">
           <div className="border bg-white border-slate-300 rounded-lg p-6  ">
+            
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="mb-12">
                 <h1 className="text-slate-900 text-3xl font-semibold">
@@ -52,7 +61,9 @@ const AuthForm = ({ onLogin }) => {
                 </p>
               </div>
 
-              {/* Username */}
+              {error && (
+                <p className='p-2 bg-red-500 text-white rounded mb-4'>{error}</p>
+              )}
               <div>
                 <label className="text-slate-900 text-sm font-medium mb-2 block">User name</label>
                 <input

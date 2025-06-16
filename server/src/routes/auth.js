@@ -9,7 +9,7 @@ const router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET || 'SDFWEFDSSFSDFWECWRAQW'
 
 router.post('/register', async (req, res) => {
-  console.log("asdasdf",req.body)
+  
   try {
     
     const { username, email, password } = req.body
@@ -45,6 +45,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
+    
     const { username, password } = req.body
    
     const user = await User.findOne({ username});
@@ -53,6 +54,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' })
     }
     const isMatch = await bcrypt.compare(password, user.password)
+   
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' })
     }
